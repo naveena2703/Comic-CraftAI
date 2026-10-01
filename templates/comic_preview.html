@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Comic Preview • {{ app_name }}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="result-header">
+
+    <div>
+
+        <p class="eyebrow">
+            YOUR COMIC
+        </p>
+
+        <h1>
+            Comic Preview
+        </h1>
+
+        <p>
+            {{ request_data.story_prompt }}
+        </p>
+
+    </div>
+
+
+    <a
+        class="button"
+        href="{{ pdf_path }}"
+        download
+    >
+        Download PDF
+    </a>
+
+</div>
+
+
+<div class="panels">
+
+{% for panel in layout %}
+
+<article class="panel">
+
+    <div class="panel-heading">
+
+        <span>
+            Panel {{ panel.panel_number }}
+        </span>
+
+        <h2>
+            {{ panel.title }}
+        </h2>
+
+    </div>
+
+
+    <img
+        src="{{ panel.image_path }}"
+        alt="Comic panel {{ panel.panel_number }}"
+    >
+
+
+    <p class="scene">
+        {{ panel.scene_description }}
+    </p>
+
+
+    {% if panel.caption %}
+
+    <div class="caption">
+
+        <strong>
+            Caption:
+        </strong>
+
+        {{ panel.caption }}
+
+    </div>
+
+    {% endif %}
+
+
+    <div class="narration">
+
+        {{ panel.narration }}
+
+    </div>
+
+
+    {% if panel.dialogue %}
+
+    <div class="dialogue">
+
+        "{{ panel.dialogue }}"
+
+    </div>
+
+    {% endif %}
+
+
+    <details>
+
+        <summary>
+            Show image prompt
+        </summary>
+
+        <p>
+            {{ panel.image_prompt }}
+        </p>
+
+    </details>
+
+</article>
+
+{% endfor %}
+
+</div>
+
+
+<div class="bottom-actions">
+
+    <a
+        class="button secondary"
+        href="/"
+    >
+        Create Another Comic
+    </a>
+
+
+    <a
+        class="button"
+        href="{{ pdf_path }}"
+        download
+    >
+        Download Your Comic as PDF
+    </a>
+
+</div>
+
+{% endblock %}

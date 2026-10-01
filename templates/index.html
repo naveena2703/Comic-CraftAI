@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+
+{% block title %}
+Create Comic • {{ app_name }}
+{% endblock %}
+
+
+{% block content %}
+
+<section class="hero">
+
+    <p class="eyebrow">
+        CREATE YOUR STORY
+    </p>
+
+    <h1>
+        Turn an idea into a comic.
+    </h1>
+
+    <p>
+        Describe your story, choose a character,
+        setting, tone and art style.
+        ComicCraft will create a five-panel story.
+    </p>
+
+</section>
+
+
+{% if error %}
+
+<div class="alert error">
+
+    <strong>
+        Generation failed:
+    </strong>
+
+    {{ error }}
+
+</div>
+
+{% endif %}
+
+
+<form
+    class="comic-form"
+    action="/generate"
+    method="post"
+    onsubmit="showLoading()"
+>
+
+    <label>
+
+        Story Prompt
+
+        <textarea
+            name="story_prompt"
+            maxlength="2000"
+            required
+            placeholder="A brave fox explores an enchanted forest..."
+        ></textarea>
+
+    </label>
+
+
+    <div class="grid">
+
+        <label>
+
+            Main Character
+
+            <input
+                type="text"
+                name="character_name"
+                maxlength="80"
+                required
+                placeholder="Finn"
+            >
+
+        </label>
+
+
+        <label>
+
+            Setting
+
+            <select name="setting">
+
+                <option>
+                    Enchanted forest
+                </option>
+
+                <option>
+                    School
+                </option>
+
+                <option>
+                    Futuristic city
+                </option>
+
+                <option>
+                    Outer space
+                </option>
+
+                <option>
+                    Village
+                </option>
+
+                <option>
+                    Underwater world
+                </option>
+
+            </select>
+
+        </label>
+
+
+        <label>
+
+            Story Tone
+
+            <select name="tone">
+
+                <option>
+                    Light-hearted
+                </option>
+
+                <option>
+                    Dramatic
+                </option>
+
+                <option>
+                    Funny
+                </option>
+
+                <option>
+                    Poetic
+                </option>
+
+                <option>
+                    Adventurous
+                </option>
+
+                <option>
+                    Mysterious
+                </option>
+
+            </select>
+
+        </label>
+
+
+        <label>
+
+            Art Style
+
+            <select name="art_style">
+
+                <option>
+                    Comic book
+                </option>
+
+                <option>
+                    Anime
+                </option>
+
+                <option>
+                    Pixel art
+                </option>
+
+                <option>
+                    Watercolor
+                </option>
+
+                <option>
+                    Cinematic
+                </option>
+
+                <option>
+                    Fantasy illustration
+                </option>
+
+            </select>
+
+        </label>
+
+    </div>
+
+
+    <button
+        id="generateButton"
+        type="submit"
+    >
+        Generate My Comic
+    </button>
+
+
+    <p
+        id="loading"
+        class="loading"
+        hidden
+    >
+        Generating outline, story,
+        images and PDF...
+    </p>
+
+</form>
+
+
+<section class="info-card">
+
+    <h2>
+        First Run
+    </h2>
+
+    <p>
+        For the first test, keep
+        <code>IMAGE_PROVIDER=placeholder</code>
+        in your <code>.env</code> file.
+    </p>
+
+    <p>
+        After the application works,
+        you can enable Hugging Face
+        or local Stable Diffusion.
+    </p>
+
+</section>
+
+{% endblock %}
